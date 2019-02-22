@@ -11,7 +11,7 @@ find_package( Qt5Widgets )
 include_directories(
    src
    ${Qt5Core_INCLUDE_DIRS}
-   /opt/ros/melodi/include
+   /opt/ros/kinetic/include
 )
 set(CMAKE_AUTOMOC ON)
 
@@ -21,5 +21,5 @@ add_definitions(${Qt5Core_DEFINITIONS})
 
 #add_definitions(${Qt5Core_DEFINITIONS})
 add_executable(control_remoto src/main.cc src/mainDialog.cc )
-target_link_libraries( control_remoto  ${Qt5Widgets_LIBRARIES} /opt/ros/melodic/lib/libroscpp.so /opt/ros/melodic/lib/libroslib.so
-/opt/ros/melodic/lib/librosconsole.so /opt/ros/melodic/lib/libroscpp_serialization.so)
+target_link_libraries( control_remoto  ${Qt5Widgets_LIBRARIES} /opt/ros/kinetic/lib/libroscpp.so /opt/ros/kinetic/lib/libroslib.so
+/opt/ros/kinetic/lib/librosconsole.so /opt/ros/kinetic/lib/libroscpp_serialization.so)

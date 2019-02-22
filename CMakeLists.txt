@@ -109,7 +109,7 @@ catkin_package(
   DEPENDS 
   	roscpp
   	gazebo_ros
-  	
+  	gazebp_plugins
 )
 
 ###########
@@ -133,12 +133,12 @@ add_library(${PROJECT_NAME}
    src/comandos.cpp
    #codigo/Laser.cpp
  )
-add_library(mi_laser
-   src/sensores/Laser.cpp
- )
-add_library(te_veo
-   src/sensores/camara.cpp
- )
+#add_library(mi_laser
+#   src/sensores/Laser.cpp
+# )
+#add_library(te_veo
+#   src/sensores/camara.cpp
+# )
 ## Add cmake target dependencies of the library
 ## as an example, code may need to be generated before libraries
 ## either from message generation or dynamic reconfigure
@@ -155,21 +155,21 @@ add_library(te_veo
 target_link_libraries(${PROJECT_NAME}
    ${catkin_LIBRARIES}
 )
-target_link_libraries(mi_laser
-   ${catkin_LIBRARIES} RayPlugin
-)
-target_link_libraries(te_veo
-   ${catkin_LIBRARIES} CameraPlugin
-)
+#target_link_libraries(mi_laser
+#   ${catkin_LIBRARIES} RayPlugin
+#)
+#target_link_libraries(te_veo
+#   ${catkin_LIBRARIES} CameraPlugin
+#)
 
 #add_executable(mi_mundo codigo/world.cpp  )
 #target_link_libraries(mi_mundo ${catkin_LIBRARIES})
 add_definitions(-std=c++11)
 
 
-add_subdirectory(extras/teVeo)
-add_subdirectory(extras/controlador1)
-add_subdirectory(extras/control_remoto)
+#add_subdirectory(extras/teVeo)
+#add_subdirectory(extras/controlador1)
+#add_subdirectory(extras/control_remoto)
 
 #############
 ## Install ##

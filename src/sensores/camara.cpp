@@ -38,21 +38,22 @@ namespace gazebo {
 		infoCamara.D.resize(5);
 		gazebo::rendering::DistortionPtr distorsion=camara->LensDistortion();;
 		double hfov = camara->HFOV().Radian();
-		ignition::math::Vector2<double> centro;
+		gazebo::math::Vector2d centro;
 		if(distorsion!=NULL){
-			centro=	distorsion->Center();
-			infoCamara.D[0]=distorsion->K1();
-			infoCamara.D[1]=distorsion->K2();
-			infoCamara.D[2]=distorsion->P1();
-			infoCamara.D[3]=distorsion->P2();
-			infoCamara.D[4]=distorsion->K3();
+			centro=	distorsion->GetCenter();
+			infoCamara.D[0]=distorsion->GetK1();
+			infoCamara.D[1]=distorsion->GetK2();
+			infoCamara.D[2]=distorsion->GetP1();
+			infoCamara.D[3]=distorsion->GetP2();
+			infoCamara.D[4]=distorsion->GetK3();
 		}else{
 			infoCamara.D[0]=0;
 			infoCamara.D[1]=0;
 			infoCamara.D[2]=0;
 			infoCamara.D[3]=0;
 			infoCamara.D[4]=0;
-			centro.Set((static_cast<double>(infoCamara.width) /2.0),(static_cast<double>(infoCamara.height) /2.0));
+			centro.x=(static_cast<double>(infoCamara.width) /2.0);
+			centro.y=(static_cast<double>(infoCamara.height) /2.0);
 		}
 
 		/**/
@@ -62,8 +63,8 @@ namespace gazebo {
 		formatoImagen=sensor_msgs::image_encodings::RGB8;
 		double longitudFocal = (static_cast<double>(infoCamara.width)) / (2.0 * tan(hfov / 2.0));
 		std::cout<<"hfov: "<<hfov<<"  long: "<<longitudFocal<<"\r\n";
-		double x=centro.X();//(static_cast<double>(infoCamara.width=this->sensorPtr->ImageWidth()) + 1.0) /2.0;
-		double y=centro.Y();//(static_cast<double>(infoCamara.width=this->sensorPtr->ImageHeight()) + 1.0) /2.0;
+		double x=centro.x;//(static_cast<double>(infoCamara.width=this->sensorPtr->ImageWidth()) + 1.0) /2.0;
+		double y=centro.y;//(static_cast<double>(infoCamara.width=this->sensorPtr->ImageHeight()) + 1.0) /2.0;
 
 		infoCamara.K[0] = longitudFocal;
 		infoCamara.K[1] = 0.0;

@@ -20,7 +20,7 @@ namespace ray {
 		msgInfoCamara.D.resize(5);
 		//gazebo::rendering::DistortionPtr distorsion=camara->LensDistortion();;
 		//double hfov = camara->HFOV().Radian();
-		ignition::math::Vector2<double> centro;
+		gazebo::math::Vector2d centro;
 		/*if(distorsion!=NULL){
 			centro=	distorsion->GetCenter();
 			infoCamara.D[0]=distorsion->GetK1();
@@ -34,7 +34,8 @@ namespace ray {
 			msgInfoCamara.D[2]=0;
 			msgInfoCamara.D[3]=0;
 			msgInfoCamara.D[4]=0;
-			centro.Set((msgInfoCamara.width /2.0),(msgInfoCamara.height /2.0));
+			centro.x=(msgInfoCamara.width /2.0);
+			centro.y=(msgInfoCamara.height /2.0);
 		//}
 
 		/**/
@@ -50,8 +51,8 @@ namespace ray {
 			//longitudFocal=(msgInfoCamara.width)*((2.0 * tan((M_PI/2) / 2.0)));
 		}
 		std::cout<<longitudFocal<<"\r\n";
-		double x=centro.X();
-		double y=centro.Y();
+		double x=centro.x;
+		double y=centro.y;
 
 		msgInfoCamara.K[0] = longitudFocal;
 		msgInfoCamara.K[1] = 0.0;

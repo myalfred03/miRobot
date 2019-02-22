@@ -16,15 +16,15 @@ namespace gazebo {
 	std::string Comandos::ruta="";
 	bool Comandos::procesar(std::string &comando, MiRobot * robot ){
 		std::vector<std::string> partes=split(comando, ' ');
-		bool valido=true;
-		bool mostrar=false;
+
 		if(partes.size()==0){
 			//gzerr<<"No se ha indicado un comando válido."<<"\r\n";
 		}else{
 			switch(partes[0][0]){
 				case 'd':
-					robot->pintar(comando);
-					mostrar=true;
+					if(partes.size()>1){
+						robot->pintar(partes[1]);
+					}
 					break;
 				case 'p':
 					//p union tipo valor
@@ -32,7 +32,6 @@ namespace gazebo {
 					if(partes.size()>3){
 						robot->parametrizar(partes[1],partes[2],std::stod(partes[3]));
 					}
-
 					break;
 				case 'm':
 					//m union posicion_radianes
@@ -40,7 +39,6 @@ namespace gazebo {
 					if(partes.size()>2){
 						robot->mover(partes[1],std::stod(partes[2]));
 					}
-
 					break;
 				case 'e':
 					//e fichero
@@ -78,40 +76,38 @@ namespace gazebo {
 					}
 					stream.close();
 					}
-
 					break;
 				case 'w':
 					//w [union]
 					//Espera hasta que la unión halla llegado a su destino. Si no se indica la unión se espera hata terminar todas
-					ROS_INFO("esperando");
-
+					ROS_INFO("eseparndo");
 					break;
 				case 's':
-					{
-						//s milisegundos
-						//Duerme los milisegundos indicados.
+					//s milisegundos
+					//Duerme los milisegundos indicados.
 
-						//de momento nos dormimos durante el tiempo indicado.
-						std::string tiempo(partes[1]);
-						ROS_INFO("durmiendo %d",std::stoi(tiempo));
-						boost::this_thread::sleep(boost::posix_time::milliseconds(std::stoi(tiempo)));
-						//usleep(std::stoi(tiempo));
-						ROS_INFO("despierto");
-					}
-
+					//de momento nos dormimos durante el tiempo indicado.
+					std::string tiempo(partes[1]);
+					ROS_INFO("durmiendo %d",std::stoi(tiempo));
+					boost::this_thread::sleep(boost::posix_time::milliseconds(std::stoi(tiempo)));
+					//usleep(std::stoi(tiempo));
+					ROS_INFO("despierto");
 					break;/**/
-				default:
-					valido=false;
-					//break;
 			}
-		}
-		if(valido){
-			robot->ultimoComando=comando;
-			robot->mostrar=mostrar;
-
 		}
 		return false;
 	}
 
 } /* namespace gazebo */
 
+std::vector<std::string> split(const std::string &c, char d){
+	std::vector<std::string> resultado;
+
+	std::stringstream cs(c);
+	std::string parte;
+	while(std::getline(cs, parte, d)){
+		resultado.push_back(parte);
+	}
+
+	return resultado;
+}

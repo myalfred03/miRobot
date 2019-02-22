@@ -13,7 +13,7 @@
 #include "std_msgs/String.h"
 
 #include "../src/miRobot.h"
-
+std::vector<std::string> split(const std::string &c, char d);
 namespace gazebo {
 
 	class Comandos {
