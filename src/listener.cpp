@@ -90,11 +90,13 @@ namespace gazebo{
                   for (int m=0; m<it; m++){
 
                   for (int i = 0; i < 6; i++) {
-                    jointvalues[i] = msg.points[m].positions[i];
+                    jointvalues[i] = msg.points[m].positions[i] + 1;
                     velvalues  [i] = msg.points[m].velocities[i];
                     jointname[i] = msg.joint_names[i];
                     std::cout<< jointname[5] << std::endl;
                      this->robot->mover(jointname[i],  jointvalues[i]);
+                     boost::this_thread::sleep(boost::posix_time::milliseconds(1000));
+
 //                    msgpub.points[0].positions[i] = msg.points[0].positions[i];
 
                   //  Comandos::wait(velocities(0));

@@ -8,6 +8,8 @@
 #include <std_msgs/Float32MultiArray.h>
 #include <trajectory_msgs/JointTrajectory.h>
 #include <trajectory_msgs/JointTrajectoryPoint.h>
+#include <boost/filesystem.hpp>
+#include <boost/thread/thread.hpp>
 
 #include <stdio.h>
 #include <thread>
