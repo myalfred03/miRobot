@@ -6,8 +6,9 @@
 #include "std_msgs/String.h"
 #include <stdio.h>
 #include <gazebo/gazebo.hh>
-
 #include "comandos.h"
+double ToG    = 57.295779513;
+
 namespace gazebo{
 	void Listener::init(MiRobot * robot, const std::string topic) {
 		this->robot=robot;
@@ -48,7 +49,7 @@ namespace gazebo{
 
 		this->pid_values = this->nodo->subscribe("/pid_value",10, &Listener::pidCallback, this);
 
-		this->trajectory_values = this->nodo->subscribe("/set_joint_trajectory",10, &Listener::trajectoryCallback, this);
+		this->trajectory_values = this->nodo->subscribe("/set_joint_trajectory",1, &Listener::trajectoryCallback, this);
 
 	    this->joint_pub =this->nodo->advertise(ad2);
 	    //<trajectory_msgs::JointTrajectory>("joint_values_gazebo", 10);
@@ -87,15 +88,15 @@ namespace gazebo{
                   std::vector<std::string> jointname(6);
                   it = msg.points.size();
 
-                  for (int m=0; m<it; m++){
+                  for (int m=1; m<it; m++){
 
                   for (int i = 0; i < 6; i++) {
-                    jointvalues[i] = msg.points[m].positions[i] + 1;
+                    jointvalues[i] = (msg.points[m].positions[i]+0.001)/ToG;
                     velvalues  [i] = msg.points[m].velocities[i];
                     jointname[i] = msg.joint_names[i];
                     std::cout<< jointname[5] << std::endl;
                      this->robot->mover(jointname[i],  jointvalues[i]);
-                     boost::this_thread::sleep(boost::posix_time::milliseconds(1000));
+                     boost::this_thread::sleep(boost::posix_time::milliseconds(100));
 
 //                    msgpub.points[0].positions[i] = msg.points[0].positions[i];
 

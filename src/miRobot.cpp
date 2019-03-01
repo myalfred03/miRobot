@@ -38,12 +38,12 @@ namespace gazebo{
 
 				 double absError=(error>0)?error:-1*error;
 				 double velocidad=0;
-				 if(absError>0.001){
+				// if(absError>0.01){
 					 velocidad=_union->pid.Update(error, ticActual);
 
-				 }else{
-					 _union->moviendo=false;
-				 }
+				 //}else{
+				//	 _union->moviendo=false;
+				// }
 				 _union->velocidad=velocidad;
 			 }
 
@@ -67,7 +67,6 @@ namespace gazebo{
 	 		 _union->pid.SetPGain(msg.points[0].positions[0]);
 	 		 _union->pid.SetIMax(msg.points[0].positions[3]);
 	 		 _union->pid.SetIMin(msg.points[0].positions[4]);
-	 		 _union->moviendo=false;
 
 	 		 
 	 }
